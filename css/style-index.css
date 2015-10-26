@@ -1,0 +1,56 @@
+@charset "UTF-8";
+body{
+	margin:0;
+	background-color:#000;
+}
+h1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-weight:bold;
+	color:#FFF;
+}
+h2{
+	font-family:Tahoma, Geneva, sans-serif;
+	color:#FFF;
+	font-size:17px;
+	text-align:center;
+}
+h3{
+	font-family:Tahoma, Geneva, sans-serif;
+	color:#FFF;
+	font-size:17px;
+	text-align:center;
+	margin-top:35px;
+	margin-bottom:35px;
+}
+h5{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	font-weight:bold;
+	color:#FFF;
+	text-align:center;
+}
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-weight:bold;
+	margin-bottom:20px;
+	line-height:22px;
+	color:#FFF;
+}
+.wrapper{
+	width:900px;
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:0;
+	margin-bottom:0;
+	padding:20px;
+}
+#passcode{
+	margin:50px;
+}
+a{
+	text-decoration:none;
+	color:#666;
+}

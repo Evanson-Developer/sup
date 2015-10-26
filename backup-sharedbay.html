@@ -1,0 +1,59 @@
+ <p><span style="font-weight:bold;">SHARE BAY LOCKUP</span></p>
+            
+    <div style="height:45px; width:100%; padding-left:75px; margin-top:10px;">
+    
+<?php
+require_once 'anet_php_sdk/AuthorizeNet.php'; // Include the SDK you downloaded in Step 2
+$api_login_id = '579wYfN3';
+$transaction_key = '9W25seDyUQn262kx';
+$amount = "25";
+$fp_timestamp = time();
+$fp_sequence = "001" . time(); // Enter an invoice or other unique number.
+$fingerprint = AuthorizeNetSIM_Form::getFingerprint($api_login_id,
+$transaction_key, $amount, $fp_sequence, $fp_timestamp)
+?>
+
+<form method='post' action="https://secure.authorize.net/gateway/transact.dll">
+
+<input type='hidden' name="x_login" value="<?php echo $api_login_id?>" />
+<input type='hidden' name="x_fp_hash" value="<?php echo $fingerprint?>" />
+<input type='hidden' name="x_amount" value="<?php echo $amount?>" />
+<input type='hidden' name="x_fp_timestamp" value="<?php echo $fp_timestamp?>" />
+<input type='hidden' name="x_fp_sequence" value="<?php echo $fp_sequence?>" />
+<input type='hidden' name="x_version" value="3.1">
+<input type='hidden' name="x_show_form" value="payment_form">
+<input type='hidden' name="x_test_request" value="false" />
+<input type='hidden' name="x_method" value="cc">
+<input type='hidden' name="x_description" value="Monthly Subscription of Board Storage ($25 - Share Bay).">
+<input type='submit' value="$25 - Share Bay" class="storage-pay">
+
+</form>
+
+<?php
+require_once 'anet_php_sdk/AuthorizeNet.php'; // Include the SDK you downloaded in Step 2
+$api_login_id = '579wYfN3';
+$transaction_key = '9W25seDyUQn262kx';
+$amount = "30";
+$fp_timestamp = time();
+$fp_sequence = "002" . time(); // Enter an invoice or other unique number.
+$fingerprint = AuthorizeNetSIM_Form::getFingerprint($api_login_id,
+$transaction_key, $amount, $fp_sequence, $fp_timestamp)
+?>
+
+<form method='post' action="https://secure.authorize.net/gateway/transact.dll">
+
+<input type='hidden' name="x_login" value="<?php echo $api_login_id?>" />
+<input type='hidden' name="x_fp_hash" value="<?php echo $fingerprint?>" />
+<input type='hidden' name="x_amount" value="<?php echo $amount?>" />
+<input type='hidden' name="x_fp_timestamp" value="<?php echo $fp_timestamp?>" />
+<input type='hidden' name="x_fp_sequence" value="<?php echo $fp_sequence?>" />
+<input type='hidden' name="x_version" value="3.1">
+<input type='hidden' name="x_show_form" value="payment_form">
+<input type='hidden' name="x_test_request" value="false" />
+<input type='hidden' name="x_method" value="cc">
+<input type='hidden' name="x_description" value="Monthly Subscription of Board Storage ($25 Share Bay Plus $5 Insurance).">
+<input type='submit' value="$25 Share Bay Plus $5 Insurance" class="storage-pay">
+
+</form>
+    
+     </div> 

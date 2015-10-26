@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<simpleviewergallery 
+
+	useFlickr="true"
+	flickrUserName="wakingvisionmedia"
+	flickrTags="dolphine-adventure"
+	galleryHeight="100%"
+	backgroundTransparent="false"
+	useFlash="false"
+	galleryStyle="MODERN"
+	thumbPosition="BOTTOM"
+	thumbColumns="8"
+	thumbRows="1"
+	indexPageName="index.html"/>
