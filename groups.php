@@ -1,3 +1,197 @@
+ <?php 
+error_reporting(0);
+$e_name = ''; $e_group = ''; $e_leader = ''; $e_phone = ''; $e_email = ''; $e_number = ''; $e_questions = ''; $e_captcha = ''; 
+$name = ''; $group = ''; $leader = ''; $phone = ''; $email = ''; $email2 = ''; $number = ''; $questions = ''; $captcha = ''; 
+$mail_msg = '';
+  
+if(isset($_POST['SubmitYour'])){
+      
+	  if(isset($_POST['name']) && !empty($_POST['name'])){
+	     $_POST['name'] = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+		 if(!empty($_POST['name'])){
+			$name = $_POST['name'];
+		 }
+		 else{
+			$e_name = 'Name Required';
+		 }
+      }
+	  else{
+			$e_name = 'Name Required';
+		 }
+		 
+	  if(isset($_POST['group']) && !empty($_POST['group'])){
+	     $_POST['group'] = filter_var($_POST['group'], FILTER_SANITIZE_STRING);
+		 if(!empty($_POST['group'])){
+			$group = $_POST['group'];
+		 }
+		 else{
+			$e_group = 'Field Required';
+		 }
+      }
+	  else{
+			$e_group = 'Field Required';
+		 }
+		 
+	  if(isset($_POST['leader']) && !empty($_POST['leader'])){
+	     $_POST['leader'] = filter_var($_POST['leader'], FILTER_SANITIZE_STRING);
+		 if(!empty($_POST['leader'])){
+			$leader = $_POST['leader'];
+		 }
+		 else{
+			$e_leader = 'Field Required';
+		 }
+      }
+	  else{
+			$e_leader = 'Field Required';
+		 }
+		 
+	  if(isset($_POST['phone']) && !empty($_POST['phone'])){
+	     if(is_numeric($_POST['phone']) && strlen($_POST['phone']) == 10){
+			$phone = $_POST['phone'];
+		 }
+		 else{
+			$e_phone = 'Enter Only Numbers & Ten Numbers Required';
+		 }
+      }
+	  else{
+			$e_phone = 'Field Required';
+		 }
+	  
+	  if(isset($_POST['email']) && !empty($_POST['email'])){
+	     if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+			if(isset($_POST['email2']) && !empty($_POST['email2'])){
+	           $email2 = filter_var($_POST['email2'], FILTER_VALIDATE_EMAIL);
+			}
+			  if($_POST['email'] == $email2){
+					$email = $_POST['email'];  
+			  }
+			  else{
+				$e_email = 'Email Adresses dont Match';  
+			  }
+		 }
+		 else{
+			$e_email = 'Enter a Valid Email Address';
+		 }
+      }
+	  else{
+			$e_email = 'Field Required';
+		 }
+	  
+	  
+	  
+	  
+	  if(isset($_POST['number']) && !empty($_POST['number'])){
+		  if(is_numeric($_POST['number'])){
+			$number = $_POST['number'];
+		 }
+		 else{
+			$e_number = 'Only Numbers Required';
+		 }
+	  }
+	  else{
+			$e_number = 'Field Required';
+		 }
+	  
+	  if(isset($_POST['questions']) && !empty($_POST['questions'])){
+	     $_POST['questions'] = filter_var($_POST['questions'], FILTER_SANITIZE_STRING);
+		 if(!empty($_POST['questions'])){
+			$questions = $_POST['questions'];
+		 }
+		 else{
+			$e_questions = 'Field Required';
+		 }
+      }
+	  else{
+			$e_questions = 'Field Required';
+		 }
+	  
+	  if(isset($_POST['g-recaptcha-response'])){
+          $captcha=$_POST['g-recaptcha-response'];
+        }
+      if(!$captcha){
+          $e_captcha = 'Please check the the captcha form';
+          
+      }
+        $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Lemqw8TAAAAADe9mKdZ_zlbcXYPSGj4rRwCHREV&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+        
+    if($response.success==false){
+		$e_captcha = 'Please check the the captcha form';
+    }
+	else{
+        $e_captcha = 'Captcha Vaildation Failed, Please try again';
+     }
+if(!empty($name)&& !empty($group)&& !empty($leader)&& !empty($phone)&& !empty($email)&& !empty($email2) && !empty($number)&& !empty($questions)&& !empty($captcha))
+  {
+	   //$from = 'From: ken@standuprentals.net';
+      
+    $sssto = 'jarodsu@gmail.com	'; 
+	
+    $subject = 'Group Inquiry';
+	
+	$headers = "From: " . $email . "\r\n";
+    $headers .= "Reply-To: ". $email . "\r\n";
+    		
+    $body = "Inquiry Person: ".$name." \n
+	         Group Name: ".$email." \n
+	         Group Leader: ".$leader." \n
+	         Phone number: ".$phone." \n
+	         Email: ".$email." \n
+	         Trip Date: ".$date." \n
+	         Trip Time: ".$time." \n
+	         Number of Participants: ".$number." \n
+	         Additional Question: ".$questions."";
+	 if (mail($to,$subject,$body,$headers)) { 
+        $mail_msg = 'Your message has been sent!';
+		$name = ''; $group = ''; $leader = ''; $phone = ''; $email = ''; $email2 = ''; $date = ''; $time = ''; $number = ''; $questions = ''; $captcha = ''; 
+     } 	
+	 else{
+		$mail_msg = 'Something went wrong, go back and try again!'; 
+	 }
+  }  
+  
+   /*//$from = 'From: ken@standuprentals.net';
+    //$from = 'evansonmwakio@gmail.com';   
+    $to = 'jarodsu@gmail.com	'; 
+	$to = 'evansonmwakio@gmail.com';
+    $subject = 'Group Inquiry';
+	
+	$headers = "From: " . $email . "\r\n";
+    $headers .= "Reply-To: ". $email . "\r\n";
+    		
+    $body = "Inquiry Person: ".$name." \n
+	Group Name: ".$email." \n
+	Group Leader: ".$leader." \n
+	Phone number: ".$phone." \n
+	Email: ".$email." \n
+	Trip Date: ".$date." \n
+	Trip Time: ".$time." \n
+	Number of Participants: ".$number." \n
+	Additional Question: ".$questions."";
+	 if (mail($to,$subject,$body,$headers)) { 
+
+     } */	 
+     
+}
+	
+	
+	function err_msg($err){
+		if(isset($err) && !empty($err)){
+			$err_mg = '<span class="val_errors">'.$err. '* </span><br> ';
+			echo $err_mg;
+		}
+	}
+	
+	function input_filler($value){
+		if(isset($value) && !empty($value)){
+			$value_mg = 'value="'.$value. '"';
+			echo $value_mg;
+		}
+	}
+	
+?>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/standuptemp.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -18,8 +212,13 @@ standuprentals long beach, paddleboard long beach, paddleboard los angeles" />
 <script type="text/javascript">
 Shadowbox.init();
 </script>
+<style>
+ .val_errors{ color: #ff0000;}
+ .g-recaptcha{margin-left: 10px;}
+</style>
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div class="wrapper">
@@ -79,60 +278,24 @@ The group rate requires that everyone knows how to swim (for any of our activiti
 <div class="linebreak"></div>
 	
    <h3>Signup Form</h3>
-	
+	  <?php echo $mail_msg; ?>
     	<form id="form2" name="form1" method="post" action="groups.php">
     
   
-	<p>Name of person inquiring:&nbsp;<input type="text" name="name" style="width:100px;" class="formField" /></p>
-    <p>School, Team, Organization or Company Name:&nbsp;<input type="text" name="group" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Group Leader:&nbsp;<input type="text" name="leader" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Phone Number: &nbsp;<input type="text" name="phone" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Email Address:&nbsp;<input type="text" name="email" class="formField" /> &nbsp;&nbsp;Confirm Email Address: <input type="text" name="email2" class="formField" /><br /><span style="font-size:12px; font-style:italic;">(Email addresses is for information re: new rules, Dolphin Adventures, Advanced Classes and Special Hours...)</span></p>
-    <p>Date of Trip:&nbsp;<input type="text" name="date" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Time of Trip:&nbsp;<input type="text" name="time" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Approximate Number of Participants:&nbsp;<input type="text" name="number" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p>Questions?&nbsp;<input type="text" name="questions" maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
-    <p><label>*What is 6 times 3? (Anti-spam)</label><input name="human" placeholder="Type Here"></p>
-     <p><input name="Submit Your" type="submit" value="Sign Up Confirmation" /></p>
-
- <?php 
-
-$name = $_POST['name'];
-$group = $_POST['group'];
-$leader = $_POST['leader'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$date = $_POST['date'];
-$time = $_POST['time'];
-$number = $_POST['number'];
-$questions = $_POST['questions'];
-
-    $from = 'From: ken@standuprentals.net'; 
-    $to = 'jarodsu@gmail.com	'; 
-    $subject = 'Group Inquiry';
-    $human = $_POST['human'];
-			
-    $body = "Inquiry Person: $name\n
-	Group Name: $email\n
-	Group Leader: $leader\n
-	Phone number: $phone\n
-	Email: $email\n
-	Trip Date: $date\n
-	Trip Time: $time\n
-	Number of Participants: $number\n
-	Additional Question: $questions";
-				
-    if ($_POST['submit'] && $human == '18') {				 
-        if (mail ($to, $subject, $body, $from)) { 
-	    echo '<p>Your message has been sent!</p>';
-	} else { 
-	    echo '<p>Something went wrong, go back and try again!</p>'; 
-	} 
-    } else if ($_POST['submit'] && $human != '') {
-	echo '<p>You answered the anti-spam question incorrectly!</p>';
-    }
+	<p>Name of person inquiring:&nbsp;<?php err_msg($e_name); ?><input type="text" name="name" <?php input_filler($name); ?> style="width:100px;" class="formField" /></p>
+    <p>School, Team, Organization or Company Name:&nbsp; <?php err_msg($e_group); ?><input type="text" name="group" <?php input_filler($group); ?>  style="width:120px;" class="formField" id="phone"  /></p>
+    <p>Group Leader:&nbsp;<?php err_msg($e_leader); ?><input type="text" name="leader" <?php input_filler($leader); ?>  style="width:120px;" class="formField" id="phone"  /></p>
+    <p>Phone Number: &nbsp;<?php err_msg($e_phone); ?><input type="text" name="phone" <?php input_filler($phone); ?>  maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
+    <p><?php err_msg($e_email); ?>Email Address:&nbsp;<input type="text" name="email" <?php input_filler($email); ?>  class="formField" /> &nbsp;&nbsp;Confirm Email Address: <input type="text" name="email2" <?php input_filler($email); ?>  class="formField" /><br /><span style="font-size:12px; font-style:italic;">(Email addresses is for information re: new rules, Dolphin Adventures, Advanced Classes and Special Hours...)</span></p>
+    <p>Approximate Number of Participants:&nbsp;<?php err_msg($e_number); ?><input type="text" name="number" <?php input_filler($number); ?>  maxlength="10" style="width:120px;" class="formField" id="phone"  /></p>
+    <p>Questions?&nbsp;<?php err_msg($e_questions); ?><input type="text" name="questions" <?php input_filler($questions); ?> style="width:120px;" class="formField" id="phone"  /></p>
+    <!-- <p><label>*What is 6 times 3? (Anti-spam)</label><input name="human" placeholder="Type Here"></p> -->
+	<?php err_msg($e_captcha); ?>
+	<div class="g-recaptcha" data-sitekey="6Lemqw8TAAAAAAemCoRJ-KCE76rYC2FXagBp2eWx"></div>
 	
-?>
+     <p><input name="SubmitYour" type="submit" value="Sign Up Confirmation" /></p>
+
+
 
 <div class="linebreak"></div>
 
