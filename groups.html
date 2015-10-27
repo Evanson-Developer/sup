@@ -20,6 +20,7 @@ Shadowbox.init();
 </script>
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div class="wrapper">
@@ -85,20 +86,19 @@ The group rate requires that everyone knows how to swim (for any of our activiti
 
 <h3>Signup Form</h3>
 	
-    	<form id="form2" name="form1" method="post" action="groupform.php">
+    	<form id="form2" name="form1" method="post" action="groups.php">
     
   
 	<p>Name of person inquiring:&nbsp;<input type="text" name="name" style="width:100px;" class="formField" /></p>
-    <p>School, Team, Organization or Company Name:&nbsp;<input type="text" name="group" maxlength="40" style="width:120px;" class="formField"  /></p>
-    <p>Group Leader:&nbsp;<input type="text" name="leader" maxlength="40" style="width:120px;" class="formField"   /></p>
-    <p>Phone Number: &nbsp;<input type="text" name="phone" maxlength="40" style="width:120px;" class="formField"   /></p>
+    <p>School, Team, Organization or Company Name:&nbsp;<input type="text" name="group" style="width:120px;" class="formField"  /></p>
+    <p>Group Leader:&nbsp;<input type="text" name="leader" style="width:120px;" class="formField"   /></p>
+    <p>Phone Number: &nbsp;<input type="text" name="phone" maxlength="10" style="width:120px;" class="formField"   /></p>
     <p>Email Address:&nbsp;<input type="text" name="email" class="formField" /> &nbsp;&nbsp;Confirm Email Address: <input type="text" name="email2" class="formField" /><br /><span style="font-size:12px; font-style:italic;">(Email addresses is for information re: new rules, Dolphin Adventures, Advanced Classes and Special Hours...)</span></p>
-    <p>Date of Trip:&nbsp;<input type="text" name="date" maxlength="40" style="width:120px;" class="formField"  /></p>
-    <p>Time of Trip:&nbsp;<input type="text" name="time" maxlength="40" style="width:120px;" class="formField"  /></p>
     <p>Approximate Number of Participants:&nbsp;<input type="text" name="number" maxlength="40" style="width:120px;" class="formField"   /></p>
-    <p>Questions?&nbsp;<input type="text" name="questions" maxlength="10" style="width:120px;" class="formField" /></p>
-    <p><label>*What is 6 times 3? (Anti-spam)</label><input name="human" placeholder=""></p>
-    
+    <p>Questions?&nbsp;<input type="text" name="questions" style="width:120px;" class="formField" /></p>
+    <!-- <p><label>*What is 6 times 3? (Anti-spam)</label><input name="human" placeholder=""></p> -->
+    <div class="g-recaptcha" data-sitekey="6Lemqw8TAAAAAAemCoRJ-KCE76rYC2FXagBp2eWx"></div>
+	
      <p><input name="Submit Your" type="submit" value="Submit your request" /></p>
 
     </form>
